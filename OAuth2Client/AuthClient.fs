@@ -31,10 +31,8 @@ type AuthClient(secrets:Secrets, scope:string) =
   member this.doAuthRequest(parameters) = async {
     let webClient = new System.Net.WebClient()
     let postBody = toNameValueCollection parameters
-    printfn "Posting to %s" (secrets.auth_uri.ToString())
     let! resultbytes =  Async.AwaitTask <| webClient.UploadValuesTaskAsync(secrets.token_uri, "POST", postBody)
     let result = System.Text.Encoding.UTF8.GetString(resultbytes)
-    printfn "%s" result
     return Credentials.FromJson(result)
     }
 
