@@ -9,7 +9,7 @@ type Credentials =
     AccessToken : string
     RefreshToken : string
     ExpiresIn : System.TimeSpan
-    ObtainedAt: System.DateTime
+    ObtainedAt: System.DateTimeOffset
     TokenType: string
     Scope : string
     RawJson : string
@@ -25,8 +25,8 @@ type Credentials =
       ExpiresIn = System.TimeSpan.FromSeconds(resultData?expires_in.AsFloat())
       ObtainedAt =
         if resultData.TryGetProperty("obtained_at") = None
-          then defaultArg obtainedAt System.DateTime.UtcNow
-          else System.DateTime.Parse(resultData?obtained_at.ToString())
+          then defaultArg obtainedAt System.DateTimeOffset.UtcNow
+          else System.DateTimeOffset.Parse(resultData?obtained_at.ToString())
       TokenType = resultData?token_type.AsString()
       Scope = resultData?scope.AsString()
       RawJson = txt
