@@ -5,8 +5,14 @@ open System.Collections.Generic
 open FSharp.Data.Json
 open FSharp.Data.Json.Extensions
 
-type SecretsClientType = Installed | Web
 
+
+
+// Secrets holds the client config data from the server including
+// our client ID and client secret. It also contains the urls for
+// the token and auth endpoints.
+
+type SecretsClientType = Installed | Web
 
 type Secrets =
   { client_type : SecretsClientType
