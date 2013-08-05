@@ -15,10 +15,6 @@ type Credentials =
     RawJson : string
   }
 
-  member this.addToWebRequest (request:System.Net.WebRequest) =
-    request.Headers.Set("Authorization", "Bearer " + this.AccessToken)
-
-
   static member FromJson(txt, ?obtainedAt) =
     let resultData = JsonValue.Parse(txt)
     {
