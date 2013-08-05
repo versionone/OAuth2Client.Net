@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{CBE23F
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Tests", "Tests\Tests.fsproj", "{F3C1904D-DDE4-419C-830A-5EF8BED821F7}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "GrantTool", "GrantTool\GrantTool.fsproj", "{93611F8C-94CF-43A9-8F44-06F9B19A7F98}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{F3C1904D-DDE4-419C-830A-5EF8BED821F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3C1904D-DDE4-419C-830A-5EF8BED821F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3C1904D-DDE4-419C-830A-5EF8BED821F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93611F8C-94CF-43A9-8F44-06F9B19A7F98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93611F8C-94CF-43A9-8F44-06F9B19A7F98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93611F8C-94CF-43A9-8F44-06F9B19A7F98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93611F8C-94CF-43A9-8F44-06F9B19A7F98}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
