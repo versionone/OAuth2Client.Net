@@ -2,12 +2,16 @@
 
 open System
 open System.Collections.Specialized
+open System.Collections.Generic
 open System.Web
+open System.Net
 
-open FSharp.Data.Json
-open FSharp.Data.Json.Extensions
+
+open Extensions.Http
 
 type AuthClient(secrets:Secrets, scope:string) = 
+  let httpclient = new System.Net.Http.HttpClient()
+
   let encodeQueryString (nvs:(string * string) seq) =
     String.Join("&", [for n,v in nvs -> (sprintf "%s=%s" n (HttpUtility.UrlEncode v))])
 
@@ -27,16 +31,16 @@ type AuthClient(secrets:Secrets, scope:string) =
                 "state", ""
                 ]
     u.ToString()
-
-  member this.doAuthRequest(parameters) = async {
-    let webClient = new System.Net.WebClient()
+    
+  member this.doAuthRequest(parameters) = Async.StartAsTask <| async {
     let postBody = toNameValueCollection parameters
-    let! resultbytes =  Async.AwaitTask <| webClient.UploadValuesTaskAsync(secrets.token_uri, "POST", postBody)
-    let result = System.Text.Encoding.UTF8.GetString(resultbytes)
-    return Credentials.FromJson(result)
+    let postBody = new Http.FormUrlEncodedContent([for name,value in parameters -> new KeyValuePair<_,_>(name,value)])
+    let! response = Async.AwaitTask <| httpclient.PostAsync(secrets.token_uri, postBody)
+    let! responseBody =  Async.AwaitTask <| response.Content.ReadAsStringAsync()
+    return Credentials.FromJson(responseBody)
     }
 
-  member this.exchangeAuthCode(code:string) =
+  member this.exchangeAuthCode(code) =
     this.doAuthRequest(
       [ "code", code
         "client_id", secrets.client_id
@@ -47,12 +51,13 @@ type AuthClient(secrets:Secrets, scope:string) =
         ] 
       )
 
-  member this.refreshAuthCode(creds:Credentials) = 
+  member this.refreshAuthCode(creds:Credentials) =
     this.doAuthRequest(
       [ "refresh_token", creds.RefreshToken
         "client_id", secrets.client_id
         "client_secret", secrets.client_secret
+        "scope", scope
         "grant_type", "refresh_token"
         ]
       )
-    
+      
