@@ -5,45 +5,41 @@ open FSharp.Data.Json.Extensions
 
 open System.IO
 open System.Text
+open System
 
-type File with
-  static member WriteTextAsync(path:string, text:string) = async {
-    use writer = new StreamWriter(path, append=false, encoding=Encoding.UTF8)
-    return! writer.WriteAsync(text) |> Async.AwaitIAsyncResult
-    }
+open Extensions.File
 
-  static member ReadTextAsync(path:string) = async {
-    use reader = new StreamReader(path, Encoding.UTF8)
-    return! reader.ReadToEndAsync() |> Async.AwaitTask
-    }
+type Options = { secretsFile: string; credsFile: string } with
 
+  static member Default =
+    { secretsFile = "client_secrets.json"
+      credsFile = "stored_credentials.json" }
 
-type JsonFiles(?directory, ?secretsFilename, ?credsFilename) =
-  let directory = Path.GetFullPath(defaultArg directory ".")
-  let secretsFilename = Path.Combine(directory, defaultArg secretsFilename "client_secrets.json")
-  let credsFilename = Path.Combine(directory, defaultArg credsFilename "stored_credentials.json")
+  static member FromEnvironment =
+    let envSecrets = Environment.GetEnvironmentVariable("V1SDK_SECRETS")
+    let envCreds = Environment.GetEnvironmentVariable("V1SDK_CREDS")
+    { secretsFile = if envSecrets = null then Options.Default.secretsFile else envSecrets
+      credsFile = if envCreds = null then Options.Default.credsFile else envCreds
+      }
+     
 
-  member this.CredsFilename = credsFilename
+type JsonFileStorage(secretsFileName:string, credFileName:string) =
+  interface IStorage with
 
-  member this.SecretsFilename = secretsFilename
-   
-  member this.StoreCredentials(creds:Credentials) = async {
-    let! result = File.WriteTextAsync(credsFilename, creds.ToJson())
-    return creds
-    }
+    member this.GetSecrets() = Async.StartAsTask <| async {
+      let! text = File.ReadTextAsync(secretsFileName)
+      return Secrets.FromJson(text)
+      }
 
-  member this.GetCredentials () = async {
-    let! text = File.ReadTextAsync(credsFilename)
-    return Credentials.FromJson(text)
-    }
+    member this.GetCredentials() = Async.StartAsTask <| async {
+      let! text = File.ReadTextAsync(credFileName)
+      return Credentials.FromJson(text)
+      }
+      
+    member this.StoreCredentials(creds:Credentials) = Async.StartAsTask <| async {
+      let! result = File.WriteTextAsync(credFileName, creds.ToJson())
+      return creds
+      }
 
-  member this.StoreSecrets(secrets:Secrets) = async {
-    let! result = File.WriteTextAsync(secretsFilename, secrets.ToJson())
-    return secrets
-    }
-
-  member this.GetSecrets () = async {
-    let! text = File.ReadTextAsync(secretsFilename)
-    return Secrets.FromJson(text)
-    }
+  static member Default = JsonFileStorage(Options.FromEnvironment.secretsFile, Options.FromEnvironment.credsFile)
 
