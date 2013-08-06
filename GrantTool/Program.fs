@@ -3,7 +3,7 @@
 open OAuth2Client
 open System
 open System.IO
-
+open System.Threading.Tasks
 
 let askForAuthCode (client:AuthClient) = 
   let url = client.getUrlForGrantRequest()
@@ -41,8 +41,10 @@ let asyncMain (argv:string[]) = async {
     return 1
   }
 
-open Nito.AsyncEx
+open Nito.AsyncEx.Synchronous
 
 [<EntryPoint>]
-let main argv =  AsyncContext.Run(Async.StartAsTask(asyncMain argv))
+let main argv = 
+  let t =  asyncMain argv |> Async.StartAsTask
+  t.WaitAndUnwrapException()
 
