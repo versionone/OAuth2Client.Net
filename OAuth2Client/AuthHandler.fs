@@ -20,7 +20,7 @@ let collectBearerParams (response:HttpResponseMessage) =
     
 let shouldRefresh (response:HttpResponseMessage) = 
   let parameters = collectBearerParams response
-  response.StatusCode = HttpStatusCode.Unauthorized && parameters.ContainsKey("error") && parameters.["error"] = "invalid_token"
+  response.StatusCode = HttpStatusCode.Unauthorized //&& parameters.ContainsKey("error") && parameters.["error"] = "invalid_token"
 
 
 
