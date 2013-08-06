@@ -31,6 +31,6 @@ let main () = async {
 
 
 [<EntryPoint>]
-let syncMain argv = (main() |> Async.StartAsTask).WaitAndUnwrapException()
+let syncMain argv = Async.StartAsTask(main()).WaitAndUnwrapException()
 
   
