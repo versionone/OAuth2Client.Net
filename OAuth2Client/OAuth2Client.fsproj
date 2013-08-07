@@ -46,6 +46,7 @@
     <Compile Include="Extensions.File.fs" />
     <Compile Include="Storage.fs" />
     <Compile Include="Extensions.Http.fs" />
+    <Compile Include="Extensions.HttpListener.fs" />
     <Compile Include="AuthClient.fs" />
     <Compile Include="AuthHandler.fs" />
     <Compile Include="WindowsDesktopAuthCodeUI.fs" />
