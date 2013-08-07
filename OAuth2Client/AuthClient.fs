@@ -44,8 +44,7 @@ type AuthClient(secrets:Secrets, scope:string) =
   member this.doAuthRequest(parameters) =
     use webclient = new System.Net.WebClient()
     let postBody = toNameValueCollection parameters
-    //let postBody = new Http.FormUrlEncodedContent([for name,value in parameters -> new KeyValuePair<_,_>(name,value)])
-    let response = webclient.UploadValues(secrets.token_uri, postBody)  // PostAsync(secrets.token_uri, postBody)
+    let response = webclient.UploadValues(secrets.token_uri, postBody)
     let responseBody =  System.Text.Encoding.UTF8.GetString(response)
     Credentials.FromJson(responseBody)
     

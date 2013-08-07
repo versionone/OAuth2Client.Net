@@ -12,10 +12,9 @@ let askForAuthCode (client:AuthClient) =
   printfn "\nPaste the code here:"
   Console.ReadLine()
 
-
-let asyncMain (argv:string[]) = async {
+[<EntryPoint>]
+let main (argv:string[]) =
   try
-
     let scope, secretsFilename, credsFilename = 
       match argv.Length with
       | 1 -> argv.[0], "client_secrets.json", "stored_credentials.json"
@@ -27,24 +26,17 @@ let asyncMain (argv:string[]) = async {
 
     let client = AuthClient(secrets, scope)
     let code = askForAuthCode client
-    let! creds = Async.AwaitTask <| client.exchangeAuthCodeAsync code
+    let creds = client.exchangeAuthCode code
 
     File.WriteAllText(credsFilename, creds.ToJson())
 
     printfn "Successfully saved credentials to %s" credsFilename
-    return 0
+    0
 
   with :? Exception as ex ->
     printfn "%s" (ex.StackTrace.ToString())
     printfn "Failed.\n%s" ex.Message
     ignore(Console.ReadLine())
-    return 1
-  }
-
-open Nito.AsyncEx.Synchronous
-
-[<EntryPoint>]
-let main argv = 
-  let t =  asyncMain argv |> Async.StartAsTask
-  t.WaitAndUnwrapException()
+    1
+  
 
