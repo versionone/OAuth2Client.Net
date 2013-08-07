@@ -14,10 +14,10 @@ module Defaults =
   let ApiQuery = "/rest-1.oauth.v1/Data/Member?Accept=text/json;format=simple"
 
 
-let main () = async {
-  let storage : IStorage = upcast OAuth2Client.Storage.JsonFileStorage.Default
-  let! secrets = Async.AwaitTask <| storage.GetSecrets()
-  let! creds = Async.AwaitTask <| storage.GetCredentials()
+let mainAsync () = async {
+  let storage : IStorageAsync = upcast OAuth2Client.Storage.JsonFileStorage.Default
+  let! secrets = Async.AwaitTask <| storage.GetSecretsAsync()
+  let! creds = Async.AwaitTask <| storage.GetCredentialsAsync()
   let client = OAuth2Client.AuthClient(secrets, Defaults.Scope)
   use clientHandler = new System.Net.Http.HttpClientHandler()
   use oauth2handler = new  OAuth2Client.AuthHandler.OAuth2BearerHandler(clientHandler, storage, creds, client)
@@ -29,8 +29,32 @@ let main () = async {
   return 0
   }
 
+open Extensions.Http
+
+let main () =
+  let storage : IStorage = upcast OAuth2Client.Storage.JsonFileStorage.Default
+  let secrets = storage.GetSecrets()
+  let creds = storage.GetCredentials()
+  let client = OAuth2Client.AuthClient(secrets, Defaults.Scope)
+  use webclient = new System.Net.WebClient()
+  webclient.AddBearer(creds)
+  let url = Defaults.EndpointUrl + Defaults.ApiQuery
+  let response =
+    try
+      webclient.DownloadString(url)
+    with
+      :? System.Net.WebException as ex ->
+        let creds = client.refreshAuthCode(creds)
+        webclient.AddBearer(creds)
+        webclient.DownloadString(url)
+  printfn "%s" response
+  0
+  
+
+
 
 [<EntryPoint>]
-let syncMain argv = Async.StartAsTask(main()).WaitAndUnwrapException()
+//let syncMain argv = Async.StartAsTask(main()).WaitAndUnwrapException()
+let syncMain argv = main()
 
   
