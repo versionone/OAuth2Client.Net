@@ -1,5 +1,7 @@
 ﻿module OAuth2Client.Extensions.Http
 
+open OAuth2Client
+
 open System
 open System.Net
 open System.Net.Http

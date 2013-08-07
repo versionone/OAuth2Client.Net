@@ -4,6 +4,7 @@ open Nito.AsyncEx.Synchronous
 
 open OAuth2Client
 open OAuth2Client.Extensions.Http
+open OAuth2Client.Extensions.HttpClient
 
 module Defaults =
   let Scope = "apiv1"
@@ -12,16 +13,8 @@ module Defaults =
   let ApiQuery = "/rest-1.oauth.v1/Data/Member?Accept=text/json;format=simple"
 
 
-
-
 let asyncMain () = async {
-  let storage : IStorageAsync = upcast OAuth2Client.Storage.JsonFileStorage.Default
-  let! secrets = Async.AwaitTask <| storage.GetSecretsAsync()
-  let! creds = Async.AwaitTask <| storage.GetCredentialsAsync()
-  let client = OAuth2Client.AuthClient(secrets, Defaults.Scope)
-  use clientHandler = new Http.HttpClientHandler()
-  use oauth2handler = new  OAuth2Client.AuthHandler.OAuth2BearerHandler(clientHandler, storage, creds, client)
-  let httpclient = new Http.HttpClient(oauth2handler)
+  let! httpclient = System.Net.Http.HttpClient.WithOAuth2(OAuth2Client.Storage.JsonFileStorage.Default, Defaults.Scope)
   let url = Defaults.EndpointUrl + Defaults.ApiQuery
   let! response = Async.AwaitTask <| httpclient.GetAsync(url)
   let! body = Async.AwaitTask <| response.Content.ReadAsStringAsync()
