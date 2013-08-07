@@ -6,6 +6,11 @@ open System.Net.Http
 open System.Text
 
 
+type WebClient with
+  member this.AddBearer(creds:OAuth2Client.Credentials) =
+    this.Headers.["Authorization"] <- Http.Headers.AuthenticationHeaderValue("Bearer", creds.AccessToken).ToString()
+
+
 type HttpWebRequest with
   member this.AddBearer(creds:OAuth2Client.Credentials) = 
     this.Headers.["Authorization"] <- Http.Headers.AuthenticationHeaderValue("Bearer", creds.AccessToken).ToString()
