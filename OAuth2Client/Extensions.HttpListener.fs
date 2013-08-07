@@ -1,4 +1,4 @@
-﻿module Extensions.HttpListener 
+﻿module OAuth2Client.Extensions.HttpListener 
 
 open System.Text
 open System.Net
