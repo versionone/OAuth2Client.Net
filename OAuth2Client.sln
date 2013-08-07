@@ -14,8 +14,6 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Tests", "Tests\Tests.fsproj
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "GrantTool", "GrantTool\GrantTool.fsproj", "{93611F8C-94CF-43A9-8F44-06F9B19A7F98}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ExampleAPIClient", "ExampleAPIClient.fs\ExampleAPIClient.fsproj", "{16C97CCD-8C8B-4E16-AAAB-76594F4447FD}"
-EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ExampleMemberList", "ExampleMemberList\ExampleMemberList.fsproj", "{77606E97-F1FC-4889-9BFB-115B471B84AD}"
 EndProject
 Global
@@ -36,10 +34,6 @@ Global
 		{93611F8C-94CF-43A9-8F44-06F9B19A7F98}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93611F8C-94CF-43A9-8F44-06F9B19A7F98}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93611F8C-94CF-43A9-8F44-06F9B19A7F98}.Release|Any CPU.Build.0 = Release|Any CPU
-		{16C97CCD-8C8B-4E16-AAAB-76594F4447FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{16C97CCD-8C8B-4E16-AAAB-76594F4447FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{16C97CCD-8C8B-4E16-AAAB-76594F4447FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{16C97CCD-8C8B-4E16-AAAB-76594F4447FD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{77606E97-F1FC-4889-9BFB-115B471B84AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{77606E97-F1FC-4889-9BFB-115B471B84AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77606E97-F1FC-4889-9BFB-115B471B84AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
