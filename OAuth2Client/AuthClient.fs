@@ -10,7 +10,6 @@ open System.Net
 open Extensions.Http
 
 type AuthClient(secrets:Secrets, scope:string) = 
-  let httpclient = new System.Net.Http.HttpClient()
 
   let encodeQueryString (nvs:(string * string) seq) =
     String.Join("&", [for n,v in nvs -> (sprintf "%s=%s" n (HttpUtility.UrlEncode v))])
@@ -32,13 +31,24 @@ type AuthClient(secrets:Secrets, scope:string) =
                 ]
     u.ToString()
     
-  member this.doAuthRequest(parameters) = Async.StartAsTask <| async {
+  member this.doAuthRequestAsync(parameters) = Async.StartAsTask <| async {
+    use httpclient = new System.Net.Http.HttpClient()
     let postBody = toNameValueCollection parameters
     let postBody = new Http.FormUrlEncodedContent([for name,value in parameters -> new KeyValuePair<_,_>(name,value)])
     let! response = Async.AwaitTask <| httpclient.PostAsync(secrets.token_uri, postBody)
     let! responseBody =  Async.AwaitTask <| response.Content.ReadAsStringAsync()
     return Credentials.FromJson(responseBody)
     }
+
+    
+  member this.doAuthRequest(parameters) =
+    use webclient = new System.Net.WebClient()
+    let postBody = toNameValueCollection parameters
+    //let postBody = new Http.FormUrlEncodedContent([for name,value in parameters -> new KeyValuePair<_,_>(name,value)])
+    let response = webclient.UploadValues(secrets.token_uri, postBody)  // PostAsync(secrets.token_uri, postBody)
+    let responseBody =  System.Text.Encoding.UTF8.GetString(response)
+    Credentials.FromJson(responseBody)
+    
 
   member this.exchangeAuthCode(code) =
     this.doAuthRequest(
@@ -51,8 +61,29 @@ type AuthClient(secrets:Secrets, scope:string) =
         ] 
       )
 
+  member this.exchangeAuthCodeAsync(code) =
+    this.doAuthRequestAsync(
+      [ "code", code
+        "client_id", secrets.client_id
+        "client_secret", secrets.client_secret
+        "redirect_uri", secrets.redirect_uris.Head.ToString()
+        "scope", scope
+        "grant_type", "authorization_code"
+        ] 
+      )
+
   member this.refreshAuthCode(creds:Credentials) =
     this.doAuthRequest(
+      [ "refresh_token", creds.RefreshToken
+        "client_id", secrets.client_id
+        "client_secret", secrets.client_secret
+        "scope", scope
+        "grant_type", "refresh_token"
+        ]
+      )
+
+  member this.refreshAuthCodeAsync(creds:Credentials) =
+    this.doAuthRequestAsync(
       [ "refresh_token", creds.RefreshToken
         "client_id", secrets.client_id
         "client_secret", secrets.client_secret

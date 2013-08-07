@@ -25,18 +25,28 @@ type Options = { secretsFile: string; credsFile: string } with
 
 type JsonFileStorage(secretsFileName:string, credFileName:string) =
   interface IStorage with
+    override this.GetSecrets() = 
+      Secrets.FromJson <| File.ReadAllText(secretsFileName)
 
-    member this.GetSecrets() = Async.StartAsTask <| async {
+    override this.GetCredentials() = 
+      Credentials.FromJson <| File.ReadAllText(credFileName)
+
+    override this.StoreCredentials(creds:Credentials) = 
+      File.WriteAllText(credFileName,  creds.ToJson())
+      creds
+
+  interface IStorageAsync with
+    override this.GetSecretsAsync() = Async.StartAsTask <| async {
       let! text = File.ReadTextAsync(secretsFileName)
       return Secrets.FromJson(text)
       }
 
-    member this.GetCredentials() = Async.StartAsTask <| async {
+    override this.GetCredentialsAsync() = Async.StartAsTask <| async {
       let! text = File.ReadTextAsync(credFileName)
       return Credentials.FromJson(text)
       }
       
-    member this.StoreCredentials(creds:Credentials) = Async.StartAsTask <| async {
+    override this.StoreCredentialsAsync(creds:Credentials) = Async.StartAsTask <| async {
       let! result = File.WriteTextAsync(credFileName, creds.ToJson())
       return creds
       }

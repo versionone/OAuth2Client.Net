@@ -25,7 +25,7 @@ let shouldRefresh (response:HttpResponseMessage) =
 
 
 
-type OAuth2BearerHandler(innerHandler:HttpMessageHandler, storage:IStorage, creds:Credentials, authclient:AuthClient) =
+type OAuth2BearerHandler(innerHandler:HttpMessageHandler, storage:IStorageAsync, creds:Credentials, authclient:AuthClient) =
   inherit DelegatingHandler(innerHandler)
 
   member this.MySendAsync(req, token) = base.SendAsync(req, token) |> Async.AwaitTask
@@ -34,8 +34,8 @@ type OAuth2BearerHandler(innerHandler:HttpMessageHandler, storage:IStorage, cred
       req.AddBearer(creds)
       let! response = this.MySendAsync(req, token)
       if shouldRefresh response then
-        let! newcreds = authclient.refreshAuthCode(creds) |> Async.AwaitTask
-        let! storedcreds = storage.StoreCredentials(newcreds)  |> Async.AwaitTask
+        let! newcreds = authclient.refreshAuthCodeAsync(creds) |> Async.AwaitTask
+        let! storedcreds = storage.StoreCredentialsAsync(newcreds)  |> Async.AwaitTask
         req.AddBearer(storedcreds)
         return! this.MySendAsync(req, token)
       else

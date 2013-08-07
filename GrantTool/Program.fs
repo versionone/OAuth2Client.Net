@@ -27,7 +27,7 @@ let asyncMain (argv:string[]) = async {
 
     let client = AuthClient(secrets, scope)
     let code = askForAuthCode client
-    let! creds = Async.AwaitTask <| client.exchangeAuthCode code
+    let! creds = Async.AwaitTask <| client.exchangeAuthCodeAsync code
 
     File.WriteAllText(credsFilename, creds.ToJson())
 
