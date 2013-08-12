@@ -6,7 +6,7 @@
 . ./build.properties
 
 
-$NUGET_FETCH_URL="http://"
+
 # -----------------------------------------------------------------------------
 
 # fix for jenkins inserting the windows-style path in $WORKSPACE
