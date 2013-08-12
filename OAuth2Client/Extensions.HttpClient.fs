@@ -1,15 +1,13 @@
 ﻿module OAuth2Client.Extensions.HttpClient
 
-
-open System.Net.Http
-open OAuth2Client
-
-type HttpClient with
-  static member WithOAuth2(storage:IStorageAsync, scope:string) = async {
-    let! secrets = storage.GetSecretsAsync() |> Async.AwaitTask
-    let! creds = storage.GetCredentialsAsync()  |> Async.AwaitTask
-    let client = AuthClient(secrets, scope)
-    use clientHandler = new System.Net.Http.HttpClientHandler()
-    use oauth2handler = new  AuthHandler.OAuth2BearerHandler(clientHandler, storage, creds, client)
+type System.Net.Http.HttpClient with
+  /// Create a new HttpClient with the Oauth2 auth handler already plugged in.
+  /// The storage will be used to gather the existing secrets and credentials,
+  /// and to store any newly refreshed credentials from the OAuth2 host.
+  /// If no inner handler is specified, a new System.Net.Http.HttpClientHandler
+  /// will be created to handle requests.
+  static member WithOAuth2(storage:OAuth2Client.IStorageAsync, scope:string, ?innerHandler) = async {
+    let innerHandler = defaultArg innerHandler (new System.Net.Http.HttpClientHandler())
+    let oauth2handler = new OAuth2Client.AuthHandler.OAuth2BearerHandler(innerHandler, storage, scope)
     return new System.Net.Http.HttpClient(oauth2handler)
     }

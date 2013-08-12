@@ -8,7 +8,8 @@ type Credentials =
   {
     AccessToken : string
     RefreshToken : string
-    // ExpiresIn : System.TimeSpan
+    //// commented out becuause json (de)serializer keeps barfing on dates. Not needed for refresh behavior.
+    // ExpiresIn : System.TimeSpan  
     // ObtainedAt: System.DateTime
     TokenType: string
     Scope : string
@@ -20,6 +21,7 @@ type Credentials =
     {
       AccessToken = (resultData?access_token).AsString()
       RefreshToken = resultData?refresh_token.AsString()
+      //// commented out becuause json (de)serializer keeps barfing on dates. Not needed for refresh behavior.
       //ExpiresIn = System.TimeSpan.FromSeconds(resultData?expires_in.AsFloat())
       //ObtainedAt =
       //  if resultData.TryGetProperty("obtained_at") = None
