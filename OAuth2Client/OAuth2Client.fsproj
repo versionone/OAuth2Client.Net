@@ -42,7 +42,6 @@
   <ItemGroup>
     <Compile Include="Secrets.fs" />
     <Compile Include="Credentials.fs" />
-    <Compile Include="Interfaces.fs" />
     <Compile Include="Extensions.File.fs" />
     <Compile Include="Storage.fs" />
     <Compile Include="Extensions.HttpListener.fs" />
