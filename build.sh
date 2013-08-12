@@ -130,6 +130,9 @@ function install_nuget_deps() {
 
 # ---- Build solution using msbuild -------------------------------------------
 
+
+update_nuget_deps
+
 WIN_SIGNING_KEY="`winpath "$SIGNING_KEY"`"
 MSBuild.exe $SOLUTION_FILE \
   -p:SignAssembly=$SIGN_ASSEMBLY \
