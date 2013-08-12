@@ -49,6 +49,7 @@
     <Compile Include="AuthHandler.fs" />
     <Compile Include="Extensions.HttpClient.fs" />
     <Compile Include="Listener.fs" />
+    <Compile Include="AssemblyInfo.fs" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
