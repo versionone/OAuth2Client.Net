@@ -8,7 +8,6 @@ open OAuth2Client.Extensions.HttpClient
 
 module Defaults =
   let Scope = "apiv1"
-  //let EndpointUrl = "https://www7.v1host.com/V1Production"
   let EndpointUrl = "http://localhost/VersionOne.Web"
   let ApiQuery = "/rest-1.oauth.v1/Data/Member?Accept=text/json;format=simple"
 

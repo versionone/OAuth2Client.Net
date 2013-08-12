@@ -44,13 +44,11 @@
     <Compile Include="Credentials.fs" />
     <Compile Include="Extensions.File.fs" />
     <Compile Include="Storage.fs" />
-    <Compile Include="Extensions.HttpListener.fs" />
     <Compile Include="Extensions.Http.fs" />
     <Compile Include="AuthClient.fs" />
     <Compile Include="AuthHandler.fs" />
     <Compile Include="Extensions.HttpClient.fs" />
-    <Compile Include="WindowsDesktopAuthCodeUI.fs" />
-    <Compile Include="Flows.fs" />
+    <Compile Include="Listener.fs" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
