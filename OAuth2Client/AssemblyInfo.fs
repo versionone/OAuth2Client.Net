@@ -3,7 +3,7 @@
 
 open System.Reflection
 
-[<assembly: AssemblyTitle("VersionOne Structured Query implementation")>]
+[<assembly: AssemblyTitle("Simple OAuth2 Client for .NET")>]
 
 #if DEBUG
 [<assembly: AssemblyDescription("Debug")>]
