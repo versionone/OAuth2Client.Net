@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>https://github.com/versionone/OAuth2Client.Net/blob/master/LICENSE.md</licenseUrl>
+    <projectUrl>https://github.com/versionone/OAuth2Client.Net</projectUrl>
+    <iconUrl>https://github.com/versionone/OAuth2Client.Net/blob/master/package_icon_32px.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A simple client-only OAuth2 library for .NET.  This library is designed to be used with minial implementation by the user, in environments that are not hosted on a web server.</description>
+    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
+    <copyright>Copyright 2013</copyright>
+    <tags>OAuth2 Oauth versionone</tags>
+    <dependencies>
+      <dependency id="FSharp.Data" version="1.1.9" />
+      <dependency id="Microsoft.AspNet.WebApi.Core" version="4.0.30506.0" />
+    </dependencies>
+  </metadata>
+</package>
