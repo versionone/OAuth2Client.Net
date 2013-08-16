@@ -107,6 +107,14 @@ if [ -z "$VERSION_NUMBER" ]; then
   export VERSION_NUMBER="0.0.0"
 fi
 
+
+if [ -z "$REVISION_NUMBER" ]; then
+  # presume local workstation, use date-based build number
+  export REVISION_NUMBER=`date +%y%j`  # 2-digit year + julian day number
+fi
+
+
+
 if [ -z "$BUILD_NUMBER" ]; then
   # presume local workstation, use date-based build number
   export BUILD_NUMBER=`date +%H%M`  # hour + minute
@@ -129,8 +137,30 @@ function install_nuget_deps() {
 }
 
 
+function create_assemblyinfo() {
+  cat > $1 <<EOF
+module AssemblyInfo
+
+open System.Reflection
+
+[<assembly: AssemblyTitle("$PRODUCT_NAME")>]
+[<assembly: AssemblyDescription("$Configuration")>]
+[<assembly: AssemblyConfiguration("$Configuration")>]
+[<assembly: AssemblyCompany("$ORGANIZATION_NAME")>]
+[<assembly: AssemblyProduct("VersionOne")>]
+[<assembly: AssemblyCopyright("Copyright $COPYRIGHT_RANGE, VersionOne, Inc. Please see the LICENSE.MD file.")>]
+[<assembly: AssemblyVersion("$VERSION_NUMBER.$REVISION_NUMBER.$BUILD_NUMBER")>]
+[<assembly: AssemblyInformationalVersion("$VERSION_NUMBER.$REVISION_NUMBER.$BUILD_NUMBER")>]
+
+ignore ()
+
+EOF
+}
+
+
 # ---- Build solution using msbuild -------------------------------------------
 
+create_assemblyinfo ./OAuth2Client/AssemblyInfo.fs
 
 update_nuget_deps
 
