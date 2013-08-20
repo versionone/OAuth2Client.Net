@@ -20,7 +20,7 @@ The configuration process is the same for either of the examples, so we'll use `
     * This will give a URL that you need to open in your browser to authorize the `Example Member List` application to use the `apiv1` feature of the target VersionOne instance.
 * Once you authorize the request, copy and paste the value back into the command line and hit enter.
     * The grant tool creates `stored_credentials.json` in the same folder.
-* Finally, copy both `client_secrets.json` and `stored_credentials.json` to the `ExampleMemberListCSharp\bin\Debug` folder.
+* **Finally, copy both `client_secrets.json` and `stored_credentials.json` to the `ExampleMemberListCSharp\bin\Debug` folder.**
 * Set `ExampleMemberListCSharp` as the startup project, and then run it!
 * You should see a list of `Member` assets in JSON format, like this:
 
