@@ -1,7 +1,7 @@
 How to run the example projects
 ===============================
 
-In order to run either of the two example projects, `ExampleMemberList` or `ExampleMemberListCSharp`, you'll need to follow the standard steps for permitting an OAuth application in the instance of VersionOne that you want to run the example against. 
+In order to run either of the two example projects, `ExampleMemberList` or `ExampleMemberListCSharp`, you'll need to follow the standard steps for permitting an OAuth application in the instance of VersionOne you want to use.
 
 Configurations steps
 --------------------
