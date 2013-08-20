@@ -10,8 +10,8 @@
     <iconUrl>https://github.com/versionone/OAuth2Client.Net/blob/master/package_icon_32px.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A simple client-only OAuth2 library for .NET.  This library is designed to be used with minial implementation by the user, in environments that are not hosted on a web server.</description>
-    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
-    <copyright>Copyright 2013</copyright>
+    <releaseNotes>1.2 - cleaned up extension methods and examples</releaseNotes>
+    <copyright>Copyright 2013 VersionOne, Inc.</copyright>
     <tags>OAuth2 Oauth versionone</tags>
     <dependencies>
       <dependency id="FSharp.Data" version="1.1.9" />
