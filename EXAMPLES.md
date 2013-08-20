@@ -6,7 +6,7 @@ In order to run either of the two example projects, `ExampleMemberList` or `Exam
 Configurations steps
 --------------------
 
-We'll assume you have VersionOne installed locally at `http://localhost/VersionOne.Web`. If you want to run against a different location, use that URI insead.
+We'll assume you have VersionOne installed locally at http://localhost/VersionOne.Web. If you want to run against a different location, use that URI insead.
 
 The configuration process is the same for either of the examples, so we'll use `ExampleMemberListCSharp`.
 
@@ -150,4 +150,8 @@ The configuration process is the same for either of the examples, so we'll use `
 ```
 
 
+Other examples
+--------------
 
+You can repeat the process for the F# example, but you can also just copy the `client_secrets.json` and `stored_credentials.json` files into the `ExampleMemberList\bin\Debug` folder, change that project to be your 
+startup project, and run it. That should work too.
