@@ -13,7 +13,7 @@ namespace ExampleMemberListCSharp
 	{
 		public static string Scope = "apiv1";
 		public static string EndpointUrl = "http://localhost/VersionOne.Web";
-		public static string ApiQuery = "/rest-1.oauth.v1/Data/Member?Accept=text/json;format=simple";
+		public static string ApiQuery = "/rest-1.oauth.v1/Data/Member?Accept=text/json";
 	}
 
 
