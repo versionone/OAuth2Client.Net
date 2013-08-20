@@ -32,6 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FSharp.Core, Version=4.3.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />
@@ -45,10 +46,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OAuth2Client.Extensions.CSharp\OAuth2Client.Extensions.CSharp.csproj">
-      <Project>{80120b59-8702-4786-9d37-6212ece9bde8}</Project>
-      <Name>OAuth2Client.Extensions.CSharp</Name>
-    </ProjectReference>
     <ProjectReference Include="..\OAuth2Client\OAuth2Client.fsproj">
       <Project>{117ae8ce-d0a7-4ef0-ab28-a23cdddaac79}</Project>
       <Name>OAuth2Client</Name>

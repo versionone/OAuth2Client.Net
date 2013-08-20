@@ -6,7 +6,6 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using OAuth2Client;
-using OAuth2Client.Extensions.CSharp;
 
 namespace ExampleMemberListCSharp
 {
@@ -51,7 +50,7 @@ namespace ExampleMemberListCSharp
 	{
 		private static async Task<string> DoRequestAsync(string path)
 		{
-			var httpclient = HttpExtensions.HttpClientWithOAuth2(Defaults.Scope);
+			var httpclient = HttpClientFactory.WithOAuth2("apiv1");
 			var response = await httpclient.GetAsync(Defaults.EndpointUrl + Defaults.ApiQuery);
 			var body = await response.Content.ReadAsStringAsync();
 			return body;

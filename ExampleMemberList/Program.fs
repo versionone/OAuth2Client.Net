@@ -3,8 +3,6 @@ open System.Net
 open Nito.AsyncEx.Synchronous
 
 open OAuth2Client
-open OAuth2Client.Extensions.HttpClientExtensions
-open OAuth2Client.Extensions.HttpExtensions
 
 module Defaults =
   let Scope = "apiv1"
@@ -17,7 +15,7 @@ module Defaults =
 let asyncMain () = async {
 
   // Create a new HttpClient with the provided extension method. Without the "storage" argument, it uses the default JSON file storage implementation
-  let! httpclient = System.Net.Http.HttpClient.WithOAuth2(Defaults.Scope)
+  let httpclient = System.Net.Http.HttpClient.WithOAuth2(Defaults.Scope)
   let url = Defaults.EndpointUrl + Defaults.ApiQuery
 
   // Just use the client in a normal fashion.  HTTP Authorization will be added, and tokens refreshed on 401's.
