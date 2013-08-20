@@ -18,8 +18,6 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ExampleMemberList", "Exampl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleMemberListCSharp", "ExampleMemberListCSharp\ExampleMemberListCSharp.csproj", "{F89F548F-9773-49F9-AC14-EF9871D8719C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OAuth2Client.Extensions.CSharp", "OAuth2Client.Extensions.CSharp\OAuth2Client.Extensions.CSharp.csproj", "{80120B59-8702-4786-9D37-6212ECE9BDE8}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,10 +44,6 @@ Global
 		{F89F548F-9773-49F9-AC14-EF9871D8719C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F89F548F-9773-49F9-AC14-EF9871D8719C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F89F548F-9773-49F9-AC14-EF9871D8719C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{80120B59-8702-4786-9D37-6212ECE9BDE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{80120B59-8702-4786-9D37-6212ECE9BDE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{80120B59-8702-4786-9D37-6212ECE9BDE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{80120B59-8702-4786-9D37-6212ECE9BDE8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
