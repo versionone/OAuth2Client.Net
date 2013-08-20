@@ -34,10 +34,14 @@ What It Doesn't
   * Does not require implementation of lots of interfaces or mixing a dozen methods into a predefined flow.
 
 
+How to run the examples
+=======================
+
+Read [EXAMPLES.md](EXAMPLES.md) for details on how to get the example projects running.
 
 
-Getting started
-===============
+Getting started in your own project
+===================================
 
 * Add the OAuth2Client and VersionOne.SDK.APIClient.Net dependencies to your project via NuGet
 
