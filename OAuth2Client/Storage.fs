@@ -32,8 +32,8 @@ module Storage =
         credsFile = "stored_credentials.json" }
 
     static member FromEnvironment =
-      let envSecrets = Environment.GetEnvironmentVariable("V1SDK_SECRETS")
-      let envCreds = Environment.GetEnvironmentVariable("V1SDK_CREDS")
+      let envSecrets = Environment.GetEnvironmentVariable("OAUTH2_SECRETS")
+      let envCreds = Environment.GetEnvironmentVariable("OAUTH2_SECRETS")
       { secretsFile = if envSecrets = null then Options.Default.secretsFile else envSecrets
         credsFile = if envCreds = null then Options.Default.credsFile else envCreds
         }
