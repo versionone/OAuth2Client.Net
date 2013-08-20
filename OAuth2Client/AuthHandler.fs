@@ -3,8 +3,6 @@
 open System.Net
 open System.Net.Http
 
-open Extensions.HttpExtensions
-
 
 
 /// Attempt to parse the "x=y, z=q" style parameters from a WWW-Authenticate header

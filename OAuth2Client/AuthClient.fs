@@ -7,8 +7,6 @@ open System.Web
 open System.Net
 
 
-open Extensions.HttpExtensions
-
 type AuthClient(secrets:Secrets, scope:string) = 
 
   let encodeQueryString (nvs:(string * string) seq) =
