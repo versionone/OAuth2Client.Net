@@ -164,6 +164,8 @@ create_assemblyinfo ./OAuth2Client/AssemblyInfo.fs
 
 update_nuget_deps
 
+SIGN_ASSEMBLY=false
+
 WIN_SIGNING_KEY="`winpath "$SIGNING_KEY"`"
 MSBuild.exe $SOLUTION_FILE \
   -p:SignAssembly=$SIGN_ASSEMBLY \
