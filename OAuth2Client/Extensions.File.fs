@@ -1,4 +1,4 @@
-﻿module OAuth2Client.Extensions.File
+﻿module OAuth2Client.Extensions.FileExtensions
 
 open System.IO
 open System.Text

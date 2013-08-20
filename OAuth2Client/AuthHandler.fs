@@ -3,7 +3,7 @@
 open System.Net
 open System.Net.Http
 
-open Extensions.Http
+open Extensions.HttpExtensions
 
 
 

@@ -1,4 +1,4 @@
-﻿module OAuth2Client.Extensions.Http
+﻿module OAuth2Client.Extensions.HttpExtensions
 
 open OAuth2Client
 

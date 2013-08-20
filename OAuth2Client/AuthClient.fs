@@ -7,7 +7,7 @@ open System.Web
 open System.Net
 
 
-open Extensions.Http
+open Extensions.HttpExtensions
 
 type AuthClient(secrets:Secrets, scope:string) = 
 

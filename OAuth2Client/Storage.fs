@@ -9,7 +9,7 @@ open System.IO
 open System.Text
 open System
 
-open Extensions.File
+open Extensions.FileExtensions
 
 type IStorageAsync =
   abstract member GetSecretsAsync : unit -> Task<Secrets>
@@ -33,7 +33,7 @@ module Storage =
 
     static member FromEnvironment =
       let envSecrets = Environment.GetEnvironmentVariable("OAUTH2_SECRETS")
-      let envCreds = Environment.GetEnvironmentVariable("OAUTH2_SECRETS")
+      let envCreds = Environment.GetEnvironmentVariable("OAUTH2_CREDS")
       { secretsFile = if envSecrets = null then Options.Default.secretsFile else envSecrets
         credsFile = if envCreds = null then Options.Default.credsFile else envCreds
         }
