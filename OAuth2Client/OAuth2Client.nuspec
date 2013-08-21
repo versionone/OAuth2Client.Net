@@ -15,7 +15,6 @@
     <tags>OAuth2 Oauth versionone</tags>
     <dependencies>
       <dependency id="FSharp.Data" version="1.1.9" />
-      <dependency id="Microsoft.AspNet.WebApi.Core" version="4.0.30506.0" />
     </dependencies>
   </metadata>
 </package>
