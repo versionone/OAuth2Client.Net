@@ -37,7 +37,7 @@ open System.Runtime.InteropServices
 ///
 /// The storage will be used to gather the secrets and credentials, and will be used to store the credentials
 /// if they end up being refreshed.
-type OAuth2BearerHandler(innerHandler:HttpMessageHandler, storage:IStorageAsync, scope:string, [<Optional;DefaultParameterValue(null)>]?proxy) =
+type OAuth2BearerHandler(innerHandler:HttpMessageHandler, storage:IStorageAsync, scope:string, [<Optional;DefaultParameterValue(null)>]proxy) =
   inherit DelegatingHandler(innerHandler)
 
   member this.MySendAsync(req, token) = base.SendAsync(req, token) |> Async.AwaitTask
@@ -48,7 +48,7 @@ type OAuth2BearerHandler(innerHandler:HttpMessageHandler, storage:IStorageAsync,
       let! response = this.MySendAsync(req, token)
       if shouldRefresh response then
         let! secrets = storage.GetSecretsAsync() |> Async.AwaitTask
-        let authclient = if proxy.IsSome then AuthClient(secrets, scope, proxy.Value) else AuthClient(secrets,scope) 
+        let authclient = AuthClient(secrets, scope, proxy, null)
         let! newcreds = authclient.refreshAuthCodeAsync(creds) |> Async.AwaitTask
         let! storedcreds = storage.StoreCredentialsAsync(newcreds)  |> Async.AwaitTask
         req.AddBearer(storedcreds)

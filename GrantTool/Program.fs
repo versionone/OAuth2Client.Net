@@ -24,7 +24,7 @@ let main (argv:string[]) =
 
     let secrets = Secrets.FromJson(File.ReadAllText(secretsFilename, Text.Encoding.UTF8))
 
-    let client = AuthClient(secrets, scope)
+    let client = AuthClient(secrets, scope, null, null)
     let code = askForAuthCode client
     let creds = client.exchangeAuthCode code
 

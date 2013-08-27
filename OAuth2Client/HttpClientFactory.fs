@@ -13,6 +13,6 @@ type HttpClientFactory =
          h.Proxy <- proxy.Value
        h
     let storage : IStorageAsync = defaultArg storage (upcast OAuth2Client.Storage.JsonFileStorage.Default)
-    let oauth2handler = new OAuth2Client.AuthHandler.OAuth2BearerHandler(handler, storage, scope)
+    let oauth2handler = new OAuth2Client.AuthHandler.OAuth2BearerHandler(handler, storage, scope, null)
     new System.Net.Http.HttpClient(oauth2handler)
     

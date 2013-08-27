@@ -8,7 +8,7 @@ open System.Net
 
 open System.Runtime.InteropServices
 
-type AuthClient(secrets:Secrets, scope:string, [<Optional;DefaultParameterValue(null)>]?proxy, [<Optional;DefaultParameterValue(null)>]?handler) = 
+type AuthClient(secrets:Secrets, scope:string, [<Optional;DefaultParameterValue(null)>] proxy, [<Optional;DefaultParameterValue(null)>] handler) = 
   let await = Async.AwaitTask
   let start = Async.StartAsTask
 
@@ -50,10 +50,10 @@ type AuthClient(secrets:Secrets, scope:string, [<Optional;DefaultParameterValue(
     
   member this.doAuthRequestAsync(parameters) = start <| async {
     let handler = 
-      if handler.IsSome then handler.Value else
+      if handler <> null then handler else
       let h = new System.Net.Http.HttpClientHandler()
-      if proxy.IsSome then
-        h.Proxy <- proxy.Value
+      if proxy <> null then
+        h.Proxy <- proxy
         h.UseProxy <- true
       h
     use httpclient = new System.Net.Http.HttpClient(handler)
@@ -66,9 +66,8 @@ type AuthClient(secrets:Secrets, scope:string, [<Optional;DefaultParameterValue(
 
   member this.doAuthRequest(parameters) =
     use webclient = new System.Net.WebClient()
-    match proxy with
-    | Some p -> webclient.Proxy <- p
-    |_ -> ()
+    if proxy <> null then
+      webclient.Proxy <- proxy
     let postBody = toNameValueCollection parameters
     let response = webclient.UploadValues(secrets.token_uri, postBody)
     let responseBody =  System.Text.Encoding.UTF8.GetString(response)

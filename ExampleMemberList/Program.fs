@@ -39,7 +39,7 @@ let main () =
   let creds = storage.GetCredentials()
 
   // Create a new AuthClient instance
-  let client = OAuth2Client.AuthClient(secrets, Defaults.Scope)
+  let client = OAuth2Client.AuthClient(secrets, Defaults.Scope, null, null)
 
   // Use the provided extension method to add the credentials to the Authorization header.
   use webclient = new WebClient()
