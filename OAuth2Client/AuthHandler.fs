@@ -28,7 +28,8 @@ let collectBearerParams (response:HttpResponseMessage) =
 let shouldRefresh (response:HttpResponseMessage) = 
   let parameters = collectBearerParams response
   response.StatusCode = HttpStatusCode.Unauthorized //&& parameters.ContainsKey("error") && parameters.["error"] = "invalid_token"
-
+  
+open System.Runtime.InteropServices
 
 /// This Handler can be supplied to System.Net.HttpClient to pemit it to work against an OAuth2-protected host.
 /// It will add the appropriate Authorization header to requests, and will refresh the OAuth2 access token if
@@ -36,7 +37,7 @@ let shouldRefresh (response:HttpResponseMessage) =
 ///
 /// The storage will be used to gather the secrets and credentials, and will be used to store the credentials
 /// if they end up being refreshed.
-type OAuth2BearerHandler(innerHandler:HttpMessageHandler, storage:IStorageAsync, scope:string) =
+type OAuth2BearerHandler(innerHandler:HttpMessageHandler, storage:IStorageAsync, scope:string, [<Optional;DefaultParameterValue(null)>]?proxy) =
   inherit DelegatingHandler(innerHandler)
 
   member this.MySendAsync(req, token) = base.SendAsync(req, token) |> Async.AwaitTask
@@ -47,7 +48,7 @@ type OAuth2BearerHandler(innerHandler:HttpMessageHandler, storage:IStorageAsync,
       let! response = this.MySendAsync(req, token)
       if shouldRefresh response then
         let! secrets = storage.GetSecretsAsync() |> Async.AwaitTask
-        let authclient = AuthClient(secrets, scope)
+        let authclient = if proxy.IsSome then AuthClient(secrets, scope, proxy.Value) else AuthClient(secrets,scope) 
         let! newcreds = authclient.refreshAuthCodeAsync(creds) |> Async.AwaitTask
         let! storedcreds = storage.StoreCredentialsAsync(newcreds)  |> Async.AwaitTask
         req.AddBearer(storedcreds)
