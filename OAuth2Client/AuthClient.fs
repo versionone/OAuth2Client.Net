@@ -8,7 +8,7 @@ open System.Net
 
 open System.Runtime.InteropServices
 
-type AuthClient(secrets:Secrets, scope:string, [<Optional;DefaultParameterValue(null)>]?proxy : IWebProxy, [<Optional;DefaultParameterValue(null)>]?handler) = 
+type AuthClient(secrets:Secrets, scope:string, [<Optional;DefaultParameterValue(null)>]?proxy, [<Optional;DefaultParameterValue(null)>]?handler) = 
   let await = Async.AwaitTask
   let start = Async.StartAsTask
 
