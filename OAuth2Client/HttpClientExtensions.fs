@@ -11,4 +11,4 @@ module HttpClientExtensions =
     static member WithOAuth2(scope:string, ?storage:OAuth2Client.IStorageAsync, ?innerHandler) =
       let handler = if Option.isNone innerHandler then new System.Net.Http.HttpClientHandler() else innerHandler.Value
       let storage : IStorageAsync = defaultArg storage (upcast OAuth2Client.Storage.JsonFileStorage.Default)
-      HttpClientFactory.WithOAuth2(scope, storage, handler)
+      HttpClientFactory.WithOAuth2(scope, storage, null, handler)
