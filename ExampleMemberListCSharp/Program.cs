@@ -50,7 +50,7 @@ namespace ExampleMemberListCSharp
 	{
 		private static async Task<string> DoRequestAsync(string path)
 		{
-			var httpclient = HttpClientFactory.WithOAuth2("apiv1");
+			var httpclient = HttpClientFactory.WithOAuth2<IWebProxy>("apiv1");
 			var response = await httpclient.GetAsync(Defaults.EndpointUrl + Defaults.ApiQuery);
 			var body = await response.Content.ReadAsStringAsync();
 			return body;
