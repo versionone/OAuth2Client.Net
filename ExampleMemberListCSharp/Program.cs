@@ -34,7 +34,7 @@ namespace ExampleMemberListCSharp
 					if (((HttpWebResponse)ex.Response).StatusCode != HttpStatusCode.Unauthorized)
 						throw;
 					var secrets = storage.GetSecrets();
-					var authclient = new AuthClient(secrets, scope);
+					var authclient = new AuthClient(secrets, scope, null, null);
 					var newcreds = authclient.refreshAuthCode(creds);
 					var storedcreds = storage.StoreCredentials(newcreds);
 					client.AddBearer(storedcreds);
