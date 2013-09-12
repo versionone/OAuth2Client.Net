@@ -8,8 +8,8 @@ open System.Reflection
 [<assembly: AssemblyCompany("VersionOne, Inc.")>]
 [<assembly: AssemblyProduct("VersionOne")>]
 [<assembly: AssemblyCopyright("Copyright 2013, VersionOne, Inc. Please see the LICENSE.MD file.")>]
-[<assembly: AssemblyVersion("1.0.13228.1633")>]
-[<assembly: AssemblyInformationalVersion("1.0.13228.1633")>]
+[<assembly: AssemblyVersion("1.4.13255.1518")>]
+[<assembly: AssemblyInformationalVersion("1.4.13255.1518")>]
 
 ignore ()
 
