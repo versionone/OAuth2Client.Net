@@ -20,7 +20,7 @@ let main (argv:string[]) =
       | 1 -> argv.[0], "client_secrets.json", "stored_credentials.json"
       | 2 -> argv.[0], argv.[1], "stored_credentials.json"
       | 3 -> argv.[0], argv.[1], argv.[2]
-      | _ -> failwith "Usage: GrantTool.exe <scope> [<secretsfile>] [<credsfile>]"
+      | _ -> failwith "Invalid command line arguments.\n\nUsage:\n\n GrantTool.exe <scope> [<secretsfile>] [<credsfile>]"
 
     let secrets = Secrets.FromJson(File.ReadAllText(secretsFilename, Text.Encoding.UTF8))
 
