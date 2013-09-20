@@ -5,6 +5,7 @@ open System.Collections.Specialized
 open System.Collections.Generic
 open System.Web
 open System.Net
+open System.Linq
 
 open System.Runtime.InteropServices
 
@@ -33,7 +34,7 @@ type AuthClient(secrets:Secrets, scope:string, proxy, handler) =
     "code", code
     "client_id", secrets.client_id
     "client_secret", secrets.client_secret
-    "redirect_uri", secrets.redirect_uris.Head.ToString()
+    "redirect_uri", secrets.redirect_uris.First().ToString()
     "scope", scope
     "grant_type", "authorization_code"  ] 
       
@@ -42,7 +43,7 @@ type AuthClient(secrets:Secrets, scope:string, proxy, handler) =
     u.Query <- encodeQueryString [
                 "response_type", "code"
                 "client_id", secrets.client_id
-                "redirect_uri", secrets.redirect_uris.Head.ToString()
+                "redirect_uri", secrets.redirect_uris.First().ToString()
                 "scope", scope
                 "state", ""
                 ]

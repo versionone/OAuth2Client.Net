@@ -18,7 +18,7 @@ type Secrets =
   { client_type : SecretsClientType
     client_id : string
     client_secret : string
-    redirect_uris : System.Uri list
+    redirect_uris : System.Uri seq
     auth_uri : System.Uri
     token_uri : System.Uri }
 
