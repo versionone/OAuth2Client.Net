@@ -24,10 +24,21 @@ let collectBearerParams (response:HttpResponseMessage) =
       if header.Scheme = "Bearer" then yield! parseParams header.Parameter
     ]
     
-/// We should only refresh if we see the OAuth2 WWW-Authenticate in the 401.
-let shouldRefresh (response:HttpResponseMessage) = 
+let refreshStatuses = Set [ HttpStatusCode.Unauthorized
+                            HttpStatusCode.Forbidden
+                            HttpStatusCode.MethodNotAllowed
+                            HttpStatusCode.BadRequest ] 
+
+/// We should only refresh if we see the OAuth2 Bearer WWW-Authenticate in the headers.
+let shouldRefresh (response:HttpResponseMessage) =
   let parameters = collectBearerParams response
-  response.StatusCode = HttpStatusCode.Unauthorized //&& parameters.ContainsKey("error") && parameters.["error"] = "invalid_token"
+  let hasBearerError = parameters.ContainsKey("error") && parameters.["error"] = "invalid_token"
+  if (refreshStatuses.Contains response.StatusCode) && hasBearerError then
+     //eprintf "%A" response
+     true
+  else
+     false
+    
   
 open System.Runtime.InteropServices
 
