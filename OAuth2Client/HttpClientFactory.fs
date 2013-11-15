@@ -5,7 +5,8 @@ type HttpClientFactory =
   static member WithOAuth2( scope,
                             [<Optional;DefaultParameterValue(null)>]?storage,
                             [<Optional;DefaultParameterValue(null)>]?proxy : System.Net.IWebProxy,
-                            [<Optional;DefaultParameterValue(null)>]?handler ) : System.Net.Http.HttpClient =
+                            [<Optional;DefaultParameterValue(null)>]?handler
+                             ) : System.Net.Http.HttpClient =
     let handler =
       if Option.isSome handler then handler.Value else
        let h = new System.Net.Http.HttpClientHandler()

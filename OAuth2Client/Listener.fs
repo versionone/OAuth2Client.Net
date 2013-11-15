@@ -17,7 +17,7 @@ type HttpListenerContext with
       ignore successflag
     }
 
-  member this.RequestBodyAsync() : Async<string> = async {
+  member this.RequestBodyAsync() = async {
     use reader = new System.IO.StreamReader(this.Request.InputStream, Encoding.UTF8)
     return! reader.ReadToEndAsync() |> Async.AwaitTask
     }
