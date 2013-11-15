@@ -2,17 +2,19 @@
 
 open System.Net;
 
-
+/// ICredentials for the OAuth2 auth module.
+/// Each HttpWebRequest can be supplied with these credentials to
+/// allow it to do OAuth2 exchanges
 type OAuth2Credentials(scope, ?storage:IStorage, ?proxy) =
   let storage = defaultArg storage (upcast Storage.JsonFileStorage.Default)
   let proxy = defaultArg proxy null
   let secrets = storage.GetSecrets()
   let client = AuthClient(secrets, scope, proxy, null)
 
-  member x.GetCredentials() =
+  member x.GetOAuth2() =
     storage.GetCredentials()
 
-  member x.RefreshCredentials(?oldcred) = 
+  member x.RefreshOAuth2(?oldcred) = 
     let oldcred = defaultArg oldcred (storage.GetCredentials())
     let newcred = client.refreshAuthCode(oldcred)
     storage.StoreCredentials(newcred)
@@ -25,7 +27,7 @@ type OAuth2Credentials(scope, ?storage:IStorage, ?proxy) =
 /// An IStorage must be supplied to fetch OAuth2 Secrets and Credentials and to store refreshed Credentials.
 /// The scope is a space-separated list of server-defined scopes.
 
-type AuthModule() =
+type OAuth2BearerModule() =
                              
   interface IAuthenticationModule with
     member x.AuthenticationType with get() = "Bearer"
@@ -37,7 +39,7 @@ type AuthModule() =
     member x.PreAuthenticate(request, systemCreds) =
       match systemCreds with
       | :? OAuth2Credentials as creds ->
-        let oauth2creds = creds.GetCredentials()      
+        let oauth2creds = creds.GetOAuth2()      
         Authorization("Bearer " + oauth2creds.AccessToken)
       | _ -> null
 
@@ -48,6 +50,6 @@ type AuthModule() =
       if not (challenge.StartsWith("Bearer ")) then null else
       match systemCreds with
       | :? OAuth2Credentials as creds ->
-        let oauth2creds = creds.RefreshCredentials()
+        let oauth2creds = creds.RefreshOAuth2()
         Authorization("Bearer " + oauth2creds.AccessToken)
       | _ -> null
