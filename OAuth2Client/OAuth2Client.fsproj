@@ -47,6 +47,7 @@
     <Compile Include="HttpExtensions.fs" />
     <Compile Include="AuthClient.fs" />
     <Compile Include="AuthHandler.fs" />
+    <Compile Include="AuthModule.fs" />
     <Compile Include="HttpClientFactory.fs" />
     <Compile Include="HttpClientExtensions.fs" />
     <Compile Include="Listener.fs" />
