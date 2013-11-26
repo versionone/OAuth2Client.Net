@@ -1,14 +1,22 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "OAuth2Client", "OAuth2Client\OAuth2Client.fsproj", "{117AE8CE-D0A7-4EF0-AB28-A23CDDDAAC79}"
-EndProject
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{CBE23F22-7831-4EDD-BC98-4D56F0AD08CA}"
 	ProjectSection(SolutionItems) = preProject
 		.nuget\NuGet.Config = .nuget\NuGet.Config
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{202C0135-B27A-44D5-80AE-05929DF01CA6}"
+	ProjectSection(SolutionItems) = preProject
+		build.properties = build.properties
+		OAuth2Client\OAuth2Client.nuspec = OAuth2Client\OAuth2Client.nuspec
+	EndProjectSection
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "OAuth2Client", "OAuth2Client\OAuth2Client.fsproj", "{117AE8CE-D0A7-4EF0-AB28-A23CDDDAAC79}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Tests", "Tests\Tests.fsproj", "{F3C1904D-DDE4-419C-830A-5EF8BED821F7}"
 EndProject
@@ -17,12 +25,6 @@ EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ExampleMemberList", "ExampleMemberList\ExampleMemberList.fsproj", "{77606E97-F1FC-4889-9BFB-115B471B84AD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleMemberListCSharp", "ExampleMemberListCSharp\ExampleMemberListCSharp.csproj", "{F89F548F-9773-49F9-AC14-EF9871D8719C}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{202C0135-B27A-44D5-80AE-05929DF01CA6}"
-	ProjectSection(SolutionItems) = preProject
-		build.properties = build.properties
-		OAuth2Client\OAuth2Client.nuspec = OAuth2Client\OAuth2Client.nuspec
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
