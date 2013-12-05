@@ -52,7 +52,6 @@
   <ItemGroup>
     <Compile Include="Oauth2ClientTests.fs" />
     <Compile Include="AuthModuleTests.fs" />
-    <None Include="FullExample.fsx" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
