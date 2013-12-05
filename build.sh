@@ -1,4 +1,7 @@
 #!/bin/bash -e
+
+set -x # echo out all commands during execution
+
 . ./build.properties
 if [ -d build-tools ]; then cd build-tools && git fetch && git stash && git pull && cd ..; else git clone https://github.com/versionone/openAgile-build-tools.git build-tools; fi
 source ./build-tools/common.sh
