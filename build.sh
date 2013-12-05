@@ -22,7 +22,6 @@ open System.Reflection
 [<assembly: AssemblyCopyright("Copyright $COPYRIGHT_RANGE, VersionOne, Inc. Please see the LICENSE.MD file.")>]
 [<assembly: AssemblyVersion("$VERSION_NUMBER.0")>]
 [<assembly: AssemblyFileVersion("$VERSION_NUMBER.$BUILD_NUMBER")>]
-[<assembly: AssemblyInformationalVersion("See $GITHUB_WEB_URL/wiki")>]
 
 ignore ()
 
