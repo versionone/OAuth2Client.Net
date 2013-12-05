@@ -20,7 +20,7 @@ open System.Reflection
 [<assembly: AssemblyCompany("$ORGANIZATION_NAME")>]
 [<assembly: AssemblyProduct("VersionOne")>]
 [<assembly: AssemblyCopyright("Copyright $COPYRIGHT_RANGE, VersionOne, Inc. Please see the LICENSE.MD file.")>]
-[<assembly: AssemblyVersion("$VERSION_NUMBER.0")>]
+[<assembly: AssemblyVersion("$VERSION_NUMBER.$BUILD_NUMBER")>]
 [<assembly: AssemblyFileVersion("$VERSION_NUMBER.$BUILD_NUMBER")>]
 
 ignore ()
