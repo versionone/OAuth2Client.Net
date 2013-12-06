@@ -1,11 +1,12 @@
 ﻿namespace OAuth2Client
 
+open System.Runtime.InteropServices
 open System.Net;
 
 /// ICredentials for the OAuth2 auth module.
 /// Each HttpWebRequest can be supplied with these credentials to
 /// allow it to do OAuth2 exchanges
-type OAuth2Credentials(scope, ?storage:IStorage, ?proxy) =
+type OAuth2Credentials(scope, [<Optional;DefaultParameterValue(null)>] ?storage:IStorage, [<Optional;DefaultParameterValue(null)>] ?proxy) =
   let storage = defaultArg storage (upcast Storage.JsonFileStorage.Default)
   let proxy = defaultArg proxy null
   let secrets = storage.GetSecrets()
