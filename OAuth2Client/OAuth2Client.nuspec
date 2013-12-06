@@ -11,6 +11,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A simple client-only OAuth2 library for .NET.  This library is designed to be used with minial implementation by the user, in environments that are not hosted on a web server.</description>
     <releaseNotes>
+      1.5 - Added IAuthenticationModule-compatible adapter to use with System.Net.WebRequest and friends.
       1.4 - added proxy and handler arguments to authclient constructor
       1.2 - cleaned up extension methods and examples
     </releaseNotes>
