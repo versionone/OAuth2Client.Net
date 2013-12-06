@@ -31,36 +31,20 @@ let asyncMain () = async {
 /// This is an example using the normal synchronous methods of WebClient
 let main () =
 
-  // Since System.Net.WebClient doesn't allow a handler to deal with HTTP behavior, we have to do it ourselves.
 
   // First, get the stored credentials.
   let storage : IStorage = upcast OAuth2Client.Storage.JsonFileStorage.Default
-  let secrets = storage.GetSecrets()
-  let creds = storage.GetCredentials()
 
-  // Create a new AuthClient instance
-  let client = OAuth2Client.AuthClient(secrets, Defaults.Scope, null, null)
-
-  // Use the provided extension method to add the credentials to the Authorization header.
+  // Use the provided extension method to add the credentials 
+  AuthenticationManager.Register(OAuth2BearerModule())
   use webclient = new WebClient()
-  webclient.AddBearer(creds)
+  webclient.Credentials <- OAuth2Credentials("apiv1", storage, null)
   let url = Defaults.EndpointUrl + Defaults.ApiQuery
-
+  let response = webclient.DownloadString(url)
   // Try it, if it's a 401, refresh and try again.
-  let response =
-    try
-      webclient.DownloadString(url)
-    with
-      :? WebException as ex when ex.Status = WebExceptionStatus.ProtocolError ->
-        let response : HttpWebResponse = downcast ex.Response
-        if response.StatusCode <> HttpStatusCode.Unauthorized then reraise() else
-        let creds = client.refreshAuthCode(creds)
-        webclient.AddBearer(creds)
-        webclient.DownloadString(url)
   printfn "%s" response
   0
   
-
 
 // This simple runs both examples.
 [<EntryPoint>]
