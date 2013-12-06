@@ -14,7 +14,7 @@ let TESTURL = "http://localhost/VersionOne.Web/rest-1.v1/Data/Member"
 let [<Test>] ``The authorization module works with a System.Net.WebRequest`` () =
   AuthenticationManager.Unregister("basic")
   AuthenticationManager.Register(OAuth2BearerModule())
-  let creds = OAuth2Credentials("apiv1", Storage.JsonFileStorage.Default)
+  let creds = OAuth2Credentials("apiv1", Storage.JsonFileStorage.Default, null)
 
   let req = WebRequest.CreateHttp(TESTURL)
   req.Credentials <- creds
