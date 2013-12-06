@@ -9,7 +9,7 @@
     <projectUrl>https://github.com/versionone/OAuth2Client.Net</projectUrl>
     <iconUrl>https://github.com/versionone/OAuth2Client.Net/blob/master/package_icon_32px.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>A simple client-only OAuth2 library for .NET.  This library is designed to be used with minial implementation by the user, in environments that are not hosted on a web server.</description>
+    <description>A simple client-only OAuth2 library for .NET.  This library is designed to be used with minimal implementation by the user, in environments that are not hosted on a web server.</description>
     <releaseNotes>
       1.5 - Added IAuthenticationModule-compatible adapter to use with System.Net.WebRequest and friends.
       1.4 - added proxy and handler arguments to authclient constructor
