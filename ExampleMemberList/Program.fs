@@ -36,9 +36,8 @@ let main () =
   let storage : IStorage = upcast OAuth2Client.Storage.JsonFileStorage.Default
 
   // Use the provided extension method to add the credentials 
-  AuthenticationManager.Register(OAuth2BearerModule())
   use webclient = new WebClient()
-  webclient.Credentials <- OAuth2Credentials("apiv1", storage, null)
+  webclient.Credentials <- OAuth2Credential("apiv1", storage, null)
   let url = Defaults.EndpointUrl + Defaults.ApiQuery
   let response = webclient.DownloadString(url)
   // Try it, if it's a 401, refresh and try again.

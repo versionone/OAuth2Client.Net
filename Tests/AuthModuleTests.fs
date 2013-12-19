@@ -12,10 +12,7 @@ let TESTURL = "http://localhost/VersionOne.Web/rest-1.v1/Data/Member"
 /// files being present and suitable for an instance currently running on localhost/VersionOne.Web
 
 let [<Test>] ``The authorization module works with a System.Net.WebRequest`` () =
-  AuthenticationManager.Unregister("basic")
-  AuthenticationManager.Register(OAuth2BearerModule())
-  let creds = OAuth2Credentials("apiv1", Storage.JsonFileStorage.Default, null)
-
+  let creds = OAuth2Credential("apiv1", Storage.JsonFileStorage.Default, null)
   let req = WebRequest.CreateHttp(TESTURL)
   req.Credentials <- creds
   req.PreAuthenticate <- true

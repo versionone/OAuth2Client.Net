@@ -36,10 +36,9 @@ namespace ExampleMemberListCSharp
 		static void Main(string[] args)
 		{
 			IStorage storage = Storage.JsonFileStorage.Default;
-			AuthenticationManager.Register(new OAuth2BearerModule());
 			using (var webclient = new WebClient())
 			{
-				webclient.Credentials = new OAuth2Credentials(Defaults.Scope, storage, null);
+				webclient.Credentials = new OAuth2Credential(Defaults.Scope, storage, null);
 				var body = webclient.DownloadString(Defaults.EndpointUrl + Defaults.ApiQuery);
 				Console.WriteLine(body);
 			}
