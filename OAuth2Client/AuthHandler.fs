@@ -11,17 +11,18 @@ open System.Net.Http
 ///    WWW-Authenticate: Bearer realm="example", error="invalid_token", error_description="The access token expired"
 ///
 /// See http://tools.ietf.org/html/rfc6750#page-7
-let parseParams (param:string) = [
-    for p in param.Split(',') do
-      let spl = p.Trim().Split( [| '=' |] , 2)
-      yield spl.[0], spl.[1]
-      ]
+//let parseParams (param:string) = [
+//    for p in param.Split(',') do
+//      let spl = p.Trim().Split( [| '=' |] , 2)
+//      yield spl.[0], spl.[1]
+//      ]
        
 /// Find any "WWW-Authenticate: Bearer" headers in the response.
 let collectBearerParams (response:HttpResponseMessage) =
   dict [
     for header in response.Headers.WwwAuthenticate do
-      if header.Scheme = "Bearer" then yield! parseParams header.Parameter
+      if header.Scheme = "Bearer" then
+        yield! VersionOne.Parsers.HTTP.Parsers.parseParams header.Parameter
     ]
     
 let refreshStatuses = Set [ HttpStatusCode.Unauthorized

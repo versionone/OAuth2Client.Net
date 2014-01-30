@@ -6,17 +6,22 @@ open System.Net;
 
 /// ICredentials for the OAuth2 auth module.
 /// Each HttpWebRequest can be supplied with these credentials to
-/// allow it to do OAuth2 exchanges
+/// allow it to do OAuth2 exchanges. Using this class will register
+/// an appropriate module with System.Net.AuthorizationManager so
+/// these credentials are issued in response to Bearer challenges.
 type OAuth2Credential(scope, storage:IStorage, proxy) =
   inherit NetworkCredential()
   static do AuthenticationManager.Register(OAuth2BearerModule())
   let secrets = storage.GetSecrets()
   let client = AuthClient(secrets, scope, proxy, null)
 
-  member x.GetOAuth2() =
+  member this.GetOAuth2() =
     storage.GetCredentials()
 
-  member x.RefreshOAuth2([<Optional;DefaultParameterValue(null)>]?oldcred) = 
+  member this.GetCredential(url, authtype) : NetworkCredential = 
+    if authtype = "Bearer" then upcast this else null
+
+  member this.RefreshOAuth2([<Optional;DefaultParameterValue(null)>]?oldcred) = 
     let oldcred = defaultArg oldcred (storage.GetCredentials())
     let newcred = client.refreshAuthCode(oldcred)
     storage.StoreCredentials(newcred)
@@ -41,7 +46,6 @@ and OAuth2BearerModule() =
       | :? OAuth2Credential as cred ->
              Authorization("Bearer " + cred.GetOAuth2().AccessToken)
       | _ -> null
-
 
     /// presumably called in response to a WWW-Authenticate challenge from the
     /// http server. Since the Bearer token we possessed had been applied, this
