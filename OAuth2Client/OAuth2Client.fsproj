@@ -92,7 +92,7 @@
     <Reference Include="System.Numerics" />
     <Reference Include="System.Web" />
     <Reference Include="VersionOne.Parsers">
-      <HintPath>..\packages\VersionOne.Parsers.1.0.1.0\lib\net40\VersionOne.Parsers.dll</HintPath>
+      <HintPath>..\packages\VersionOne.Parsers.1.1.0.0\lib\net45\VersionOne.Parsers.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
